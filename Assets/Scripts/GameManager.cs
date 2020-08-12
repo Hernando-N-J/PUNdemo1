@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 namespace com.compA.gameA
 {
-
     /// <summary>
     /// Game manager.
     /// Connects and watches Photon Status, Instantiates Player
@@ -13,10 +12,30 @@ namespace com.compA.gameA
     /// Deals with level loading (outside the in room synchronization)
     /// It is a prefab because the game requires several scenes and this script will be reused
     /// </summary>
-
     public class GameManager : MonoBehaviourPunCallbacks
     {
+        public static GameManager GameManagerInstance;
 
+        public GameObject playerPrefab;
+
+        void Start()
+        {
+            // Replacing if (playerPrefab == null) 
+            // Instantiate only if PlayerManager doesn't have a reference to any local player instance
+            if (PlayerManager.localPlayerInstance == null)
+            {
+                // Debug.LogError("Put the playerPrefab");
+                Debug.LogFormat("Instantiating local player from {0}", SceneManagerHelper.ActiveSceneName);
+                PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+            }
+            else
+            {
+                Debug.LogFormat("Ignoring scene load from {0}", SceneManagerHelper.ActiveSceneName);
+
+            }
+
+            GameManagerInstance = this;
+        }
 
         /// <summary>
         /// Loading Game Scene
@@ -31,10 +50,10 @@ namespace com.compA.gameA
 
             Debug.LogFormat("-- Loading level: {0}", PhotonNetwork.CurrentRoom.Name);
 
-            /* We use PhotonNetwork.LoadLevel() to load the level we want, we don't use Unity directly, because we want to rely on Photon to load this level on all connected clients in the room, since we've enabled PhotonNetwork.AutomaticallySyncScene for this Game. */
-            // * Can be called only by Master Client
-            //  However, we'll call LoadArena() ONLY if we are the MasterClient using PhotonNetwork.IsMasterClient.
-            // Method checks out if is or isn't MasterClient, but anyway it continues till here.
+            /* We use PhotonNetwork.LoadLevel() to load the level we want, we don't use Unity directly, because we want to rely on Photon to load this level on all connected clients in the room, since we've enabled PhotonNetwork.AutomaticallySyncScene for this Game. 
+              Can be called only by Master Client
+              However, we'll call LoadArena() ONLY if we are the MasterClient using PhotonNetwork.IsMasterClient.
+             Method checks out if is or isn't MasterClient, but anyway it continues till here.*/
             PhotonNetwork.LoadLevel("Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
         }
 

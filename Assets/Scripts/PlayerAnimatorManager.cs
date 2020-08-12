@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Photon.Pun;
 
 namespace com.compA.gameA
 {
-    public class PlayerAnimatorManager : MonoBehaviour
+    public class PlayerAnimatorManager : MonoBehaviourPun
     {
         [SerializeField]
         float directionDampTime = 0.25f;
@@ -18,6 +17,11 @@ namespace com.compA.gameA
 
         void Update()
         {
+            if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
+            {
+                Debug.Log("photonview.IsMine == false, IsConnected == true");
+            }
+
             AnimatorStateInfo animStateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
             // Check if running

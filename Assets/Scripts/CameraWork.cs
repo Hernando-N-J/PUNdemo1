@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Photon.Pun;
 
 namespace com.compA.gameA
 {
-    public class CameraWork : MonoBehaviour
+    public class CameraWork : MonoBehaviourPun
     {
         [Tooltip("The distance in the local x-z plane to the target")]
         [SerializeField] float camDistance = 7.0f;
@@ -29,25 +28,16 @@ namespace com.compA.gameA
 
         void Start()
         {
-            if (followOnStart)
-            {
-                OnStartFollowing();
-            }
+            if (followOnStart) OnStartFollowing();
         }
 
         void LateUpdate()
         {
             // The transform target may not destroy on level load,
             // so we need to cover corner cases where the Main Camera is different everytime we load a new scene, and reconnect when that happens
-            if (cameraTransform == null && isFollowing)
-            {
-                OnStartFollowing();
-            }
+            if (cameraTransform == null && isFollowing) OnStartFollowing();
 
-            if (isFollowing)
-            {
-                Follow();
-            }
+            if (isFollowing) Follow();
         }
 
         /// <summary>
@@ -58,6 +48,7 @@ namespace com.compA.gameA
         {
             cameraTransform = Camera.main.transform;
             isFollowing = true;
+            
             // we don't smooth anything, we go straight to the right camera shot
             Cut();
         }
