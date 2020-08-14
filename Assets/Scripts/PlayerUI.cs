@@ -5,24 +5,25 @@ namespace com.compA.gameA
 {
     public class PlayerUI : MonoBehaviour
     {
-        [SerializeField] Text playerNameText;
+        [SerializeField] private Text playerNameText;
 
-        [SerializeField] Slider playerHealthSlider;
+        [SerializeField] private Slider playerHealthSlider;
 
         [Tooltip("Pixel offset from the player target")]
-        [SerializeField] Vector3 screenOffset = new Vector3(0f, 30f, 0f);
+        [SerializeField]
+        private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
 
-        PlayerManager playerManagerTarget;
-        
-        Vector3 targetPosition;
-        Transform targetTransform;
-        Renderer targetRenderer;
-        CanvasGroup _canvasGroup;
+        private PlayerManager playerManagerTarget;
 
-        float characterControllerHeight = 0f;
+        private Vector3 targetPosition;
+        private Transform targetTransform;
+        private Renderer targetRenderer;
+        private CanvasGroup _canvasGroup;
+
+        private float characterControllerHeight = 0f;
 
 
-        void Awake()
+        private void Awake()
         {
             this.transform.SetParent(GameObject.Find("Canvas").GetComponent<Transform>(), false);
 
@@ -37,7 +38,7 @@ namespace com.compA.gameA
             if (playerManagerTarget == null) Destroy(this.gameObject);
         }
 
-        void LateUpdate()
+        private void LateUpdate()
         {
             // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
             if (targetRenderer != null) 

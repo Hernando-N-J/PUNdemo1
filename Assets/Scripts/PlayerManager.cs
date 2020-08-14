@@ -6,19 +6,19 @@ namespace com.compA.gameA
 {
     public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
-        [SerializeField] GameObject beams;
-        [SerializeField] GameObject PlayerUiPrefab;
+        [SerializeField] private GameObject beams;
+        [SerializeField] private GameObject PlayerUiPrefab;
 
         [Tooltip("Check if this instance is the Local Player")]
         public static GameObject localPlayerInstance;
        
         public float Health = 1f;
 
-        bool IsFiring;
+        private bool IsFiring;
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity during early initialization phase.
         /// </summary>
-        void Awake()
+        private void Awake()
         {
             if (photonView.IsMine) PlayerManager.localPlayerInstance = this.gameObject;
 
@@ -35,7 +35,7 @@ namespace com.compA.gameA
             }
         }
 
-        void Start()
+        private void Start()
         {
             if (PlayerUiPrefab != null)
             {
@@ -68,7 +68,7 @@ namespace com.compA.gameA
 /// <summary>
 /// MonoBehaviour method called on GameObject by Unity on every frame.
 /// </summary>
-        void Update()
+private void Update()
         {
             if(photonView.IsMine) ProcessInputs();
 
@@ -84,7 +84,7 @@ namespace com.compA.gameA
         /// <summary>
         /// Processes the inputs. Maintain a flag representing when the user is pressing Fire.
         /// </summary>
-        void ProcessInputs()
+        private void ProcessInputs()
         {
             if (Input.GetButtonDown("Fire1"))
             {
@@ -98,7 +98,7 @@ namespace com.compA.gameA
             }
         }
 
-        void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if (!photonView.IsMine) 
                 Debug.Log("It is not the local player");
@@ -110,7 +110,7 @@ namespace com.compA.gameA
             Health -= 0.1f;
         }
 
-        void OnTriggerStay(Collider other)
+        private void OnTriggerStay(Collider other)
         {
             // we dont' do anything if we are not the local player.
             if (!photonView.IsMine)
@@ -137,17 +137,17 @@ namespace com.compA.gameA
             }
         }
 
-        void OnLevelWasLoaded(int level)
+        private void OnLevelWasLoaded(int level)
         {
             this.CalledOnLevelWasLoaded(level);
         }
 
-        void OnSceneLoaded(Scene scene, LoadSceneMode loadScMode)
+        private void OnSceneLoaded(Scene scene, LoadSceneMode loadScMode)
         {
             this.CalledOnLevelWasLoaded(scene.buildIndex);
         }
 
-        void CalledOnLevelWasLoaded(int level)
+        private void CalledOnLevelWasLoaded(int level)
         {
             // check if we are outside the Arena and if it's the case, spawn around the center of the arena in a safe zone
             if (!Physics.Raycast(transform.position, -Vector3.up, 5f))

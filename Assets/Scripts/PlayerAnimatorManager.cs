@@ -5,31 +5,30 @@ namespace com.compA.gameA
 {
     public class PlayerAnimatorManager : MonoBehaviourPun
     {
-        [SerializeField]
-        float directionDampTime = 0.25f;
-        Animator animator;
-        
-        void Start()
+        [SerializeField] private float directionDampTime = 0.25f;
+        private Animator _animator;
+
+        private void Start()
         {
-            animator = GetComponent<Animator>();
-            if(!animator) Debug.LogError("PAM missing Animator comp");
+            _animator = GetComponent<Animator>();
+            if(!_animator) Debug.LogError("PAM missing Animator comp");
         }
 
-        void Update()
+        private void Update()
         {
             if (photonView.IsMine == false && PhotonNetwork.IsConnected == true)
             {
                 Debug.Log("photonview.IsMine == false, IsConnected == true");
             }
 
-            AnimatorStateInfo animStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            AnimatorStateInfo animStateInfo = _animator.GetCurrentAnimatorStateInfo(0);
 
             // Check if running
             if(animStateInfo.IsName("BaseLayer.Run"))
             {
                 if (Input.GetButtonDown("Fire2"))
                 {
-                    animator.SetTrigger("Jump");
+                    _animator.SetTrigger("Jump");
                 }
             }
 
@@ -38,8 +37,8 @@ namespace com.compA.gameA
             
             if (v < 0) v = 0;
 
-            animator.SetFloat("Speed", h * h + v * v);
-            animator.SetFloat("Direction", h, directionDampTime, Time.deltaTime);
+            _animator.SetFloat("Speed", h * h + v * v);
+            _animator.SetFloat("Direction", h, directionDampTime, Time.deltaTime);
         }
 
 

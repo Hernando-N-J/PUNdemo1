@@ -6,32 +6,37 @@ namespace com.compA.gameA
     public class CameraWork : MonoBehaviourPun
     {
         [Tooltip("The distance in the local x-z plane to the target")]
-        [SerializeField] float camDistance = 7.0f;
+        [SerializeField]
+        private float camDistance = 7.0f;
 
         [Tooltip("The height we want the camera to be above the target")]
-        [SerializeField] float camHeight = 3.0f;
+        [SerializeField]
+        private float camHeight = 3.0f;
 
         [Tooltip("Allow the camera to be offseted vertically from the target, for example giving more view of the sceneray and less ground.")]
-        [SerializeField] Vector3 centerOffset = Vector3.zero;
+        [SerializeField]
+        private Vector3 centerOffset = Vector3.zero;
 
         [Tooltip("Set this as false if a component of a prefab being instanciated by Photon Network, and manually call OnStartFollowing() when and if needed.")]
-        [SerializeField] bool followOnStart = false;
+        [SerializeField]
+        private bool followOnStart = false;
 
         [Tooltip("The Smoothing for the camera to follow the target")]
-        [SerializeField] float smoothSpeed = 0.125f;
+        [SerializeField]
+        private float smoothSpeed = 0.125f;
 
-        Transform cameraTransform;  // cached transform of the target
+        private Transform cameraTransform;  // cached transform of the target
 
-        bool isFollowing;  // flag to reconnect if lost target or switched camera 
+        private bool isFollowing;  // flag to reconnect if lost target or switched camera 
 
-        Vector3 cameraOffset = Vector3.zero;  // Cache for camera offset
+        private Vector3 cameraOffset = Vector3.zero;  // Cache for camera offset
 
-        void Start()
+        private void Start()
         {
             if (followOnStart) OnStartFollowing();
         }
 
-        void LateUpdate()
+        private void LateUpdate()
         {
             // The transform target may not destroy on level load,
             // so we need to cover corner cases where the Main Camera is different everytime we load a new scene, and reconnect when that happens
@@ -53,7 +58,7 @@ namespace com.compA.gameA
             Cut();
         }
 
-        void Cut()
+        private void Cut()
         {
             cameraOffset.z = -camDistance;
             cameraOffset.y = camHeight;
@@ -66,7 +71,7 @@ namespace com.compA.gameA
         /// <summary>
         /// Follow the target smoothly
         /// </summary>
-        void Follow()
+        private void Follow()
         {
             cameraOffset.z = -camDistance;
             cameraOffset.y = camHeight;

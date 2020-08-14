@@ -12,7 +12,7 @@ namespace com.compA.gameA
     public class PlayerNameInputField : MonoBehaviour
     {
         // Store the PlayerPref Key to avoid typos
-        const string playerNamePrefKey = "PlayerName";
+        private const string playerNamePrefKey = "PlayerName";
 
         public bool hasPlayerName = false;
 
@@ -21,7 +21,7 @@ namespace com.compA.gameA
         /// <summary>
         /// MonoBehaviour method called on GameObject by Unity during initialization phase.
         /// </summary>
-        void Start()
+        private void Start()
         {
             Debug.Log("== Entering PlyrNameIF/Start");
             string defaultName = string.Empty;

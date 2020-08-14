@@ -18,7 +18,7 @@ namespace com.compA.gameA
 
         public GameObject playerPrefab;
 
-        void Start()
+        private void Start()
         {
             // Replacing if (playerPrefab == null) 
             // Instantiate only if PlayerManager doesn't have a reference to any local player instance
@@ -40,7 +40,7 @@ namespace com.compA.gameA
         /// <summary>
         /// Loading Game Scene
         /// </summary>
-        void LoadArena()
+        private void LoadArena()
         {
             // Check if this client is Master Client
             if (!PhotonNetwork.IsMasterClient)
