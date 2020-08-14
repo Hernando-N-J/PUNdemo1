@@ -14,9 +14,11 @@ namespace com.compA.gameA
         [SerializeField]
         private GameObject progressLabel;
 
-        private string gameVersion = "1.0";
+        private string gameVersion = "2.0";
 
         private bool isPlayerConnected;
+
+        public bool testBool;
 
         /// <summary>
         /// Keep track of the current process. Since connection is asynchronous and is based on several callbacks from Photon,
@@ -30,6 +32,7 @@ namespace com.compA.gameA
 
         private void Start()
         {
+            testBool = true;
             progressLabel.SetActive(false);
             controlPanel.SetActive(true);
         }
@@ -63,7 +66,7 @@ namespace com.compA.gameA
              if (isPlayerConnected)
             {
                 PhotonNetwork.JoinRandomRoom();
-                Debug.Log("-- OCTMaster called PN.JoinRandomRoom ");
+                Debug.Log("-- OCTMaster called PhotonNetwork.JoinRandomRoom ");
                 isPlayerConnected = false;
             }
            
@@ -100,7 +103,7 @@ namespace com.compA.gameA
 
             string theRoomName = PhotonNetwork.CurrentRoom.Name;
             Debug.Log("-- POV OJRoom -- Room name: " + theRoomName);
-            Debug.Log("-- POV OJRrom -- Number of players: " + PhotonNetwork.CurrentRoom.PlayerCount);
+            Debug.Log("-- POV OJRoom -- Number of players: " + PhotonNetwork.CurrentRoom.PlayerCount);
         }
 
     }

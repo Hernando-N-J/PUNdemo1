@@ -373,8 +373,8 @@
         <e p="Scripts" t="Include">
           <e p="CameraWork.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
-          <e p="Launcher.cs" t="Include" />
           <e p="Launcher1.cs" t="Include" />
+          <e p="Launcher2.cs" t="Include" />
           <e p="PlayerAnimatorManager.cs" t="Include" />
           <e p="PlayerManager.cs" t="Include" />
           <e p="PlayerNameInputField.cs" t="Include" />

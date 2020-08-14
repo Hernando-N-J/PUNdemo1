@@ -72,8 +72,8 @@
      <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
      <Compile Include="Assets\Scripts\CameraWork.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
-     <Compile Include="Assets\Scripts\Launcher.cs" />
      <Compile Include="Assets\Scripts\Launcher1.cs" />
+     <Compile Include="Assets\Scripts\Launcher2.cs" />
      <Compile Include="Assets\Scripts\PlayerAnimatorManager.cs" />
      <Compile Include="Assets\Scripts\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\PlayerNameInputField.cs" />
